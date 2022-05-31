@@ -4,7 +4,7 @@
 const express = require('express'),
       router = express.Router(),
       userController = require('../controllers/userController'),
-      { registerValidator } = require('../middleware/validator');
+      { registerValidator } = require('../middleware/registerValidator');
 
 router.get('/login', userController.login);
 router.post('/login', userController.loginAuthenticate);
@@ -18,8 +18,10 @@ router.post(
 router.get(
   '/dashboard',
   userController.isAuthenticated,
-  userController.dashboard,
-  userController.dashboardView
+  userController.findAllUsers,
+  userController.findAllMessages,
+  userController.shapingData,
+  userController.dashboard
 );
 router.post('/logout', userController.logout);
 

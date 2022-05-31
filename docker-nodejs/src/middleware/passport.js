@@ -2,6 +2,7 @@
 
 const passport = require('passport'),
       LocalStrategy = require('passport-local'),
+      bcrypt = require('bcrypt'),
       User = require('../models').User;
 
 module.exports = app => {
@@ -49,13 +50,14 @@ module.exports = app => {
   async(req, username, password, done) => {
     try {
       const user = await User.findOne({ where: { email: username } });
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
       if(user) {
         return done(null, false, "このメールアドレスのユーザは既に登録されています。");
       } else {
         User.create({
           username: req.body.username,
           email: req.body.email,
-          password: req.body.password
+          password: hashedPassword
         })
           .then(async() => {
             const newUser = await User.findOne({ where: { email: username } });

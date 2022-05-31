@@ -1,6 +1,7 @@
 'use strict';
 
 const User = require('../models').User,
+      Message = require('../models').Message,
       passport = require('passport'),
       { validationResult } = require('express-validator');
 
@@ -47,10 +48,11 @@ module.exports = {
     }
   },
 
-  dashboard: (req, res, next) => {
+  findAllUsers: (req, res, next) => {
     User.findAll()
       .then(users => {
-        res.locals.users = users;
+        const usersJson = JSON.stringify(users);
+        res.locals.users = JSON.parse(usersJson);
         next();
       })
       .catch(error => {
@@ -59,8 +61,35 @@ module.exports = {
       });
   },
 
-  dashboardView: (req, res) => {
-    res.render('auth/dashboard');
+  findAllMessages: (req, res, next) => {
+    Message.findAll()
+      .then(messages => {
+        const messagesJson = JSON.stringify(messages);
+        res.locals.messages = JSON.parse(messagesJson);
+        next();
+      })
+      .catch(error => {
+        console.log(`Error fetching messages: ${error.message}`);
+        next(error);
+      });
+  },
+
+  shapingData: (req, res, next) => {
+    const users = res.locals.users,
+          messages = res.locals.messages;
+    const authors = users.map(user => {
+      return user;
+    });
+    const postMessages = messages.map(message => {
+      return message;
+    });
+    res.locals.authors = authors;
+    res.locals.postMessages = postMessages
+    next();
+  },
+
+  dashboard: (req, res) => {
+    res.render('dashboard');
   },
 
   logout: (req, res, next) => {
