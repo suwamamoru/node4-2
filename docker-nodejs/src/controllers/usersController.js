@@ -1,23 +1,22 @@
 'use strict';
 
-const User = require('../models').User,
-      passport = require('passport'),
+const passport = require('passport'),
       { validationResult } = require('express-validator');
 
 module.exports = {
   login: (req, res) => {
-    res.render('auth/login')
+    res.render('auths/login')
   },
 
   loginAuthenticate: passport.authenticate('login', {
     failureFlash: true,
     failureRedirect: '/auth/login',
     successFlash: true,
-    successRedirect: '/auth/dashboard'
+    successRedirect: '/posts/posts'
   }),
 
   register: (req, res) => {
-    res.render('auth/register');
+    res.render('auths/register');
   },
 
   validate: (req, res, next) => {
@@ -35,7 +34,7 @@ module.exports = {
     failureFlash: true,
     failureRedirect: '/auth/register',
     successFlash: true,
-    successRedirect: '/auth/dashboard'
+    successRedirect: '/posts/posts'
   }),
 
   isAuthenticated: (req, res, next) => {
@@ -45,22 +44,6 @@ module.exports = {
       req.flash('error', "ログインしてください。");
       res.redirect('/auth/login');
     }
-  },
-
-  dashboard: (req, res, next) => {
-    User.findAll()
-      .then(users => {
-        res.locals.users = users;
-        next();
-      })
-      .catch(error => {
-        console.log(`Error fetching users: ${error.message}`);
-        next(error);
-      });
-  },
-
-  dashboardView: (req, res) => {
-    res.render('auth/dashboard');
   },
 
   logout: (req, res, next) => {

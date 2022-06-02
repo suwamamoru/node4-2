@@ -2,10 +2,12 @@
 
 const express = require('express'),
       router = express.Router(),
-      user = require('./user'),
-      auth = require('./auth');
+      users = require('./users'),
+      auths = require('./auths'),
+      posts = require('./posts');
 
-router.use('/auth', user);
-router.use('/auth', auth);
+router.use('/auth', users);
+router.use('/auth', auths);
+router.use('/posts', posts);
 
 module.exports = router;

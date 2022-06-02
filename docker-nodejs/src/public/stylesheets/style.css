@@ -1,8 +1,13 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.container {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  border: solid 1px #000000;
 }
 
-a {
-  color: #00B7FF;
+#title {
+  font-size: 20px;
+}
+
+#submit {
+  display: inline-block;
 }
