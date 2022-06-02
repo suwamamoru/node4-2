@@ -29,9 +29,10 @@ module.exports = app => {
     async(username, password, done) => {
       try {
         const user = await User.findOne({ where: { email: username } });
+        const comparedPassword = await bcrypt.compare(password, user.password);
         if(!user) {
           return done(null, false, "ユーザが存在しません。");
-        } else if(user.password !== password) {
+        } else if(!comparedPassword) {
           return done(null, false, "パスワードが異なります。");
         } else {
           return done(null, user, "ログインに成功しました。"); 

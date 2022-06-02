@@ -2,13 +2,13 @@
 
 const { check } = require('express-validator');
 
-const messageValidator = (req, res) => {
+const postValidator = (req, res) => {
   return [
     check('title')
       .notEmpty()
       .withMessage('タイトルを入力してください。')
-      .isLength({ max: 10 })
-      .withMessage('タイトルは10文字以内で入力してください。'),
+      .isLength({ max: 20 })
+      .withMessage('タイトルは20文字以内で入力してください。'),
     check('contents')
       .notEmpty()
       .withMessage('コンテンツを入力してください。')
@@ -17,4 +17,4 @@ const messageValidator = (req, res) => {
   ]
 }
 
-module.exports = { messageValidator };
+module.exports = { postValidator };

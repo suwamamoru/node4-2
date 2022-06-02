@@ -1,5 +1,5 @@
 <%- include('../partials/navigation') %>
-<form action="<%=`/message/${currentUser.id}/postMessage`%>" method="post">
+<form action="<%=`/posts/${currentUser.id}/create`%>" method="post">
   <div>
     <p>タイトル</p>
     <input type="text" name="title" required>

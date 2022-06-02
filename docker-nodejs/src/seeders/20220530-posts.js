@@ -1,11 +1,11 @@
 'use strict';
 
-const db = require('../models/');
+const db = require('../models');
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert(
-      'messages',
+      'posts',
       [
         {
           userId: 1,
@@ -62,6 +62,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('Messages', null, {});
+    return queryInterface.bulkDelete('Posts', null, {});
   },
 };

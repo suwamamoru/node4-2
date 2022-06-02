@@ -1,25 +1,25 @@
-<%- include('./partials/navigation') %>
+<%- include('../partials/navigation') %>
 <link rel="stylesheet" href="/stylesheets/style.css">
-<% postMessages.forEach(postMessage => { %>
+<% postContents.forEach(postContent => { %>
   <div class="container">
     <div id="title">
-      <%= postMessage.title %>
+      <%= postContent.title %>
     </div>
     <div id="contents">
-      <%= postMessage.contents %>
+      <%= postContent.contents %>
     </div>
     <% authors.forEach(author => { %>
-      <% if (postMessage.userId === author.id) { %>
+      <% if (postContent.userId === author.id) { %>
         <div id="author">
           投稿者: <%= author.username %>
         </div>
       <% } %>
-      <% if (postMessage.userId === author.id && currentUser.username === author.username) { %>
+      <% if (postContent.userId === author.id && currentUser.username === author.username) { %>
         <div id="form">
-          <form action="<%=`/message/${postMessage.id}/edit`%>" method="get" id="submit">
+          <form action="<%=`/posts/${postContent.id}/update`%>" method="get" id="submit">
             <input type="submit" value="編集">
           </form>
-          <form action="<%=`/message/${postMessage.id}/delete`%>" method="post" id="submit">
+          <form action="<%=`/posts/${postContent.id}/delete`%>" method="post" id="submit">
             <input type="submit" value="削除">
           </form>
         </div>
